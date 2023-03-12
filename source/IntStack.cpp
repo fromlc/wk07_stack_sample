@@ -1,120 +1,83 @@
-// Implementation file for the IntStach class
-#include <iostream>
+//------------------------------------------------------------------------------
+// IntStack.cpp : class definition/implementation
+//------------------------------------------------------------------------------
 #include "IntStack.h"
-using namespace std;
 
-//***********************************************
-// Constructor                                  *
-// This constructor creates an empty stack. The *
-// size parameter is the size of the stack.     *
-//***********************************************
+#include <iostream>
+using std::cout;
 
-IntStack::IntStack(int size)
-{
-   stackArray = new int[size]; 
-   stackSize = size; 
-   top = -1;
+//------------------------------------------------------------------------------
+// constructor : creates an empty stack to hod the specified number of ints
+//------------------------------------------------------------------------------
+IntStack::IntStack(int size) {
+
+    stackArray = new int[size];
+    stackSize = size;
+    top = -1;
 }
 
-//***********************************************
-// Copy constructor                             *
-//***********************************************
+//------------------------------------------------------------------------------
+// copy constructor
+//------------------------------------------------------------------------------
+IntStack::IntStack(const IntStack& obj) {
 
-IntStack::IntStack(const IntStack &obj)
-{
-   // Create the stack array.
-   if (obj.stackSize > 0)
-      stackArray = new int[obj.stackSize];
-   else
-      stackArray = nullptr;
+    // create the new stack array
+    if (obj.stackSize > 0)
+        stackArray = new int[obj.stackSize];
+    else
+        stackArray = nullptr;
 
-   // Copy the stackSize attribute.
-   stackSize = obj.stackSize;
+    // copy the old stackSize attribute
+    stackSize = obj.stackSize;
 
-   // Copy the stack contents.
-   for (int count = 0; count < stackSize; count++)
-      stackArray[count] = obj.stackArray[count];
+    // copy the old stack contents.
+    for (int count = 0; count < stackSize; count++)
+        stackArray[count] = obj.stackArray[count];
 
-   // Set the top of the stack.
-   top = obj.top;
+    // set the top of the stack
+    top = obj.top;
 }
 
-//***********************************************
-// Destructor                                   *
-//***********************************************
+//------------------------------------------------------------------------------
+// destructor
+//------------------------------------------------------------------------------
+IntStack::~IntStack() { delete[] stackArray; }
 
-IntStack::~IntStack()
-{
-   delete [] stackArray;
+//------------------------------------------------------------------------------
+// pushes passed value onto the stack
+//------------------------------------------------------------------------------
+void IntStack::push(int num) {
+
+    if (isFull()) {
+        cout << "The stack is full.\n";
+        return;
+    }
+
+    top++;
+    stackArray[top] = num;
 }
 
-//*************************************************
-// Member function push pushes the argument onto  *
-// the stack.                                     *
-//*************************************************
+//------------------------------------------------------------------------------
+// - pops the value at the top of the stack off
+// - copies popped value it into the reference parameter
+//------------------------------------------------------------------------------
+void IntStack::pop(int& num) {
 
-void IntStack::push(int num)
-{
-   if (isFull())
-   {
-      cout << "The stack is full.\n";
-   }
-   else
-   {
-      top++;
-      stackArray[top] = num;
-   }
+    if (isEmpty()) {
+        cout << "The stack is empty.\n";
+        return;
+    }
+
+    num = stackArray[top];
+    top--;
 }
 
-//****************************************************
-// Member function pop pops the value at the top     *
-// of the stack off, and copies it into the variable *
-// passed as an argument.                            *
-//****************************************************
+//------------------------------------------------------------------------------
+// returns true if the stack is full, false otherwise
+//------------------------------------------------------------------------------
+bool IntStack::isFull() const { return (top == stackSize - 1) ? true : false; }
 
-void IntStack::pop(int &num)
-{
-   if (isEmpty())
-   {
-      cout << "The stack is empty.\n";
-   }
-   else
-   {
-      num = stackArray[top];
-      top--;
-   }
-}
-
-//***************************************************
-// Member function isFull returns true if the stack *
-// is full, or false otherwise.                     *
-//***************************************************
-
-bool IntStack::isFull() const
-{
-   bool status;
-
-   if (top == stackSize - 1)
-      status = true;
-   else
-      status = false;
-
-   return status;
-}
-
-//****************************************************
-// Member funciton isEmpty returns true if the stack *
-// is empty, or false otherwise.                     *
-//****************************************************
-
-bool IntStack::isEmpty() const
-{
-   bool status;
-
-   if (top == -1)
-      status = true;
-   else 
-      status = false;
-
-   return status;
-}
+//------------------------------------------------------------------------------
+// returns true if the stack is empty, false otherwise
+//------------------------------------------------------------------------------
+bool IntStack::isEmpty() const { return (top == -1) ? true : false; }
