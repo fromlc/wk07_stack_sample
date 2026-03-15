@@ -37,7 +37,8 @@ int main()
 
     // holds values popped off the stack
     int poppedValue;
-    while (!aStack.isEmpty()) {
+    while (!aStack.isEmpty())
+    {
         aStack.pop(poppedValue);
         std::cout << "Popped " << poppedValue << '\n';
     }
