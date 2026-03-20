@@ -8,7 +8,7 @@ class IntStack
 //------------------------------------------------------------------------------
 {
 private:
-    int* stackArray;  // Pointer to the stack array
+    int *stackArray;  // Pointer to the stack array
     int stackSize;    // The stack size
     int top;          // Indicates the top of the stack
 
@@ -17,14 +17,15 @@ public:
     IntStack(int);
 
     // copy constructor
-    IntStack(const IntStack&);
+    IntStack(const IntStack &);
 
     // destructor
     ~IntStack();
 
     // stack operations
     void push(int);
-    void pop(int&);
+    void pop(int &);
+    void peek(int &);
     bool isFull() const;
     bool isEmpty() const;
 };

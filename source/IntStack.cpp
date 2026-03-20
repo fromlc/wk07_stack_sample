@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 // constructor : creates an empty stack to hold the specified number of ints
 //------------------------------------------------------------------------------
-IntStack::IntStack(int size) 
+IntStack::IntStack(int size)
 {
     // allocate enough memory for requested stack size
     stackArray = new int[size];
@@ -21,7 +21,7 @@ IntStack::IntStack(int size)
 //------------------------------------------------------------------------------
 // copy constructor
 //------------------------------------------------------------------------------
-IntStack::IntStack(const IntStack& rhs) 
+IntStack::IntStack(const IntStack &rhs)
 {
     // create the new stack array
     if (rhs.stackSize > 0)
@@ -50,7 +50,7 @@ IntStack::~IntStack() { delete[] stackArray; }
 //------------------------------------------------------------------------------
 void IntStack::push(int num)
 {
-    if (isFull()) 
+    if (isFull())
     {
         std::cout << "Could not push " << num << ". The stack is full.\n";
         return;
@@ -63,11 +63,11 @@ void IntStack::push(int num)
 
 //------------------------------------------------------------------------------
 // - pops the value at the top of the stack off
-// - copies popped value it into the reference parameter
+// - copies popped value into the reference parameter
 //------------------------------------------------------------------------------
-void IntStack::pop(int& num) 
+void IntStack::pop(int &num)
 {
-    if (isEmpty()) 
+    if (isEmpty())
     {
         std::cout << "The stack is empty.\n";
         return;
@@ -75,6 +75,20 @@ void IntStack::pop(int& num)
 
     num = stackArray[top];
     top--;
+}
+
+//------------------------------------------------------------------------------
+// - copies the value at the top of the stack into the reference parameter
+//------------------------------------------------------------------------------
+void IntStack::peek(int &num)
+{
+    if (isEmpty())
+    {
+        std::cout << "The stack is empty.\n";
+        return;
+    }
+
+    num = stackArray[top];
 }
 
 //------------------------------------------------------------------------------
